@@ -15,7 +15,7 @@ float * f_seq(float *matriz1, float *matriz2, int N, int M, int K){
       for(int k=0; k<M; k++){
         soma_parcial += matriz1[i*M + k]*matriz2[k*K + j];
       }
-      matrizR[i*M + j] = soma_parcial;
+      matrizR[i*K + j] = soma_parcial;
     }}
   return matrizR;
 }
