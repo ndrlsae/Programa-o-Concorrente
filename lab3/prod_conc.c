@@ -5,7 +5,7 @@
 #include "timer.h"
 
 
-#define TEXTO
+//#define TEXTO
 
 
 int Nlinhas, Mcolunas, Nlinhas2, Mcolunas2;
@@ -35,6 +35,8 @@ void * f_thread(void *tid){//float *matriz1, float *matriz2, int N, int M, int K
 int main(int argc, char *argv[]){
   long long int tam1, tam2, tam3;
 
+  double inicio, fim, delta;
+
   FILE* arquivo1;
   FILE* arquivo2;
 
@@ -43,6 +45,9 @@ int main(int argc, char *argv[]){
   size_t ret;
 
   pthread_t *tid_sistema;
+
+
+  GET_TIME(inicio);
 
   if(argc < 5) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2> <arquivosaida> <nº de threads>\n", argv[0]); return 1;}
 
@@ -100,6 +105,12 @@ int main(int argc, char *argv[]){
   fclose(arquivo1);
   fclose(arquivo2);
 
+  GET_TIME(fim);
+  printf("Matriz%ix%i(%lli) * Matriz%ix%i(%lli) \nMatriz%ix%i(%lli)\n%i threads:\n", Nlinhas, Mcolunas, tam1, Nlinhas2, Mcolunas2, tam2, Nlinhas, Mcolunas2, tam3, nthreads);
+  delta = fim - inicio;
+  printf("Inicialização: %lf\n", delta);
+
+  GET_TIME(inicio);
   tid_sistema = (pthread_t *) malloc(sizeof(pthread_t) * nthreads);
   if(tid_sistema==NULL){printf("Erro malloc de tid_sistema\n"); return 3;}
 
@@ -112,8 +123,12 @@ int main(int argc, char *argv[]){
   for(int i=0; i<nthreads; i++){
     pthread_join(*(tid_sistema + i), NULL);
   }
+  
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf("Processamento: %lf\n", delta);
 
-
+  GET_TIME(inicio);
   //preenchendo arquivo de saida
   arquivo_saida = fopen(argv[3], "wb");
   if(!arquivo_saida) {printf("Erro criando arquivo de saída\n"); return 7;}
@@ -145,11 +160,13 @@ int main(int argc, char *argv[]){
     printf("\n");}
 #endif
 
-  
-
   free(MatrizA);
   free(MatrizB);
   free(MatrizC);
+
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf("Finalização: %lf\n", delta);
 
   return 0;
 }
