@@ -23,13 +23,16 @@ void * f_thread(void *tid){//float *matriz1, float *matriz2, int N, int M, int K
   printf("linha 23 da thread %li\n", id);
 
   for(long int i=id; i<Nlinhas; i+=nthreads){
-    for(int j=0; j<Mcolunas2; j++){
+    printf("entrei no for i = %li\n", i);
+    for(long int j=0; j<Mcolunas2; j++){
       soma_parcial = 0;
-      for(int k=0; k<Mcolunas; k++){
+      for(long int k=0; k<Mcolunas; k++){
+        printf("thread  %li, i = %li, j = %li, k = %li\n", id, i, j, k);
         soma_parcial += MatrizA[i*Mcolunas + k]*MatrizB[k*Mcolunas2 + j];
       }
       MatrizC[i*Mcolunas + j] = soma_parcial;
     }}
+  printf("fim da thread %li \n", id);
   free(tid);
   pthread_exit(NULL);
 }
@@ -48,11 +51,11 @@ int main(int argc, char *argv[]){
 
   pthread_t *tid_sistema;
 
-  if(argc < 3) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
+  if(argc < 4) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
 
   nthreads = atoi(argv[3]);
 
-printf("nthread = %i\n", nthreads);
+ printf("nthreads = %i\n", nthreads);
 
   //extraindo informações dos arquivos
 
@@ -112,15 +115,15 @@ printf("nthread = %i\n", nthreads);
 
   //criando threads
 
-  for(long int i=0; i<nthreads; i++){
-    printf("criei %li-ésima thread\n", i);
-    if(pthread_create(&tid_sistema[i], NULL, f_thread, (void*) i)){
-      printf("Erro no pthread_create %li \n", i); return 6;
+  for(long int t=0; t<nthreads; t++){
+    printf("criei %li-ésima thread\n", t);
+    if(pthread_create(tid_sistema + t, NULL, f_thread, (void*) t)){
+      printf("Erro no pthread_create %li \n", t); return 6;
     }
   }
-
+  printf("agora vamos pro join\n");
   for(int i=0; i<nthreads; i++){
-    pthread_join(tid_sistema[i], NULL);
+    pthread_join(*(tid_sistema + i), NULL);
   }
 
 
