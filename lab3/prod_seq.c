@@ -30,9 +30,12 @@ int main(int argc, char *argv[]){
 
   FILE* arquivo1;
   FILE* arquivo2;
+
+  FILE * arquivo_saida;
+
   size_t ret;
 
-  if(argc < 3) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
+  if(argc < 4) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2> <arquivoMatrizsaida>\n", argv[0]); return 1;}
 
   //extraindo informações dos arquivos
 
@@ -84,9 +87,20 @@ int main(int argc, char *argv[]){
   fclose(arquivo1);
   fclose(arquivo2);
 
-  printf("linha87");
 
   MatrizC = f_seq(MatrizA, MatrizB, Nlinhas, Mcolunas, Mcolunas2);
+  arquivo_saida = fopen(argv[3], "wb");
+  if(!arquivo_saida) {
+    printf("Erro criando arquivo de saída\n"); return 6;}
+
+  ret = fwrite(&Nlinhas, sizeof(int), 1, arquivo_saida);
+  ret = fwrite(&Mcolunas2, sizeof(int), 1, arquivo_saida);
+
+  ret = fwrite(MatrizC, sizeof(float), tam3, arquivo_saida);
+  if(ret < tam3){ printf("Erro de escrita no arquivo\n"); return 7;}
+
+  fclose(arquivo_saida);
+
 
 #ifdef TEXTO
   printf("Matriz de Entrada A:\n");
@@ -107,9 +121,9 @@ int main(int argc, char *argv[]){
 
   
 
-  //free(MatrizA);
-  //free(MatrizB);
-  //free(MatrizC);
+  free(MatrizA);
+  free(MatrizB);
+  free(MatrizC);
 
   return 0;
 }
