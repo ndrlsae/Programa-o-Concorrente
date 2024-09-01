@@ -8,7 +8,6 @@
 #define TEXTO
 
 
-float *MatrizC;
 int Nlinhas, Mcolunas, Nlinhas2, Mcolunas2;
 float *MatrizA;
 float *MatrizB;
@@ -30,10 +29,11 @@ void * f_thread(void *tid){//float *matriz1, float *matriz2, int N, int M, int K
         printf("thread  %li, i = %li, j = %li, k = %li\n", id, i, j, k);
         soma_parcial += MatrizA[i*Mcolunas + k]*MatrizB[k*Mcolunas2 + j];
       }
-      MatrizC[i*Mcolunas + j] = soma_parcial;
+      printf("soma parcial j = %li\n", j);
+      MatrizC[i*Mcolunas2 + j] = soma_parcial;
     }}
   printf("fim da thread %li \n", id);
-  free(tid);
+  //free(tid);
   pthread_exit(NULL);
 }
 
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
   if(!ret){printf("Erro de leitura nas dimensões do arquivo 2 \n"); return 3;}
   
 
-  printf("li os arq linha 77");
+  printf("li os arq linha 77\n");
 
   //testa se podemos multiplicar matrizes com essas dimensões
   if(Mcolunas != Nlinhas2){printf("Erro de dimensão de matrizes. \n Matriz1 é %i x %i e Matriz2 é %i x %i", Nlinhas, Mcolunas, Nlinhas2, Mcolunas2); return 4;}
@@ -88,6 +88,7 @@ int main(int argc, char *argv[]){
   tam2 = Nlinhas2*Mcolunas2;
   tam3 = Nlinhas*Mcolunas2;
 
+  printf("tam1 = %lli\n tam2 = %lli\n tam3 =%lli\n", tam1,tam2, tam3);
   //alocando memória para as matrizes
   MatrizA = (float*) malloc(sizeof(float) * tam1);
   if(!MatrizA){ printf("Erro alocando memória para Matriz1\n"); return 3;}
@@ -106,15 +107,15 @@ int main(int argc, char *argv[]){
   ret = fread(MatrizB, sizeof(float), tam2, arquivo2);
   if(ret<tam2){printf("Erro lendo os elementos do arquivo 2\n"); return 5;}
 
-
+  printf("fim da leitura 100, fclose\n");
   fclose(arquivo1);
   fclose(arquivo2);
 
-  tid_sistema = (pthread_t *) malloc(sizeof(pthread_t)*nthreads);
+  tid_sistema = (pthread_t *) malloc(sizeof(pthread_t) * nthreads);
   if(tid_sistema==NULL){printf("Erro malloc de tid_sistema\n"); return 3;}
 
   //criando threads
-
+  printf("criando threadz\n");
   for(long int t=0; t<nthreads; t++){
     printf("criei %li-ésima thread\n", t);
     if(pthread_create(tid_sistema + t, NULL, f_thread, (void*) t)){
@@ -123,15 +124,18 @@ int main(int argc, char *argv[]){
   }
   printf("agora vamos pro join\n");
   for(int i=0; i<nthreads; i++){
+    printf("%i-ésimo join\n", i);
     pthread_join(*(tid_sistema + i), NULL);
   }
-
+  printf("encerrei o join\n");
 
 #ifdef TEXTO
   printf("Matriz de Entrada A:\n");
   for(int i=0; i<Nlinhas; i++){
     for(int j=0; j<Mcolunas; j++){ printf("%.5f ", MatrizA[i*Mcolunas+j]);}
     printf("\n");}
+
+  printf("cheguei no print\n");
 
   printf("Matriz de Entrada B:\n");
   for(int i=0; i<Nlinhas2; i++){
