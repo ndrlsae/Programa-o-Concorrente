@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-#define TEXTO
+//#define TEXTO
 
 int main(int argc, char*argv[]){
   float *matriz; //ponteiro pra float
