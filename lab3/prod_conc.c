@@ -7,36 +7,44 @@
 
 #define TEXTO
 
-float * f_thread(void *arg){//float *matriz1, float *matriz2, int N, int M, int K){
-  float *matrizR; //matriz resultado
-  matrizR = (float*) malloc(sizeof(float) * N * K);
 
+int Nlinhas, Mcolunas, Nlinhas2, Mcolunas2;
+float *MatrizA;
+float *MatrizB;
+float *MatrizC;
 
+int nthreads;
+
+void * f_thread(void *tid){//float *matriz1, float *matriz2, int N, int M, int K){
+  long int id = (long int) tid;
   float soma_parcial;
-  for(int i=0; i<N; i++){
-    for(int j=0; j<K; j++){
+
+  for(long int i=id; i<Nlinhas; i+=nthreads){
+    for(long int j=0; j<Mcolunas2; j++){
       soma_parcial = 0;
-      for(int k=0; k<M; k++){
-        soma_parcial += matriz1[i*M + k]*matriz2[k*K + j];
+      for(long int k=0; k<Mcolunas; k++){
+        soma_parcial += MatrizA[i*Mcolunas + k]*MatrizB[k*Mcolunas2 + j];
       }
-      matrizR[i*M + j] = soma_parcial;
+      MatrizC[i*Mcolunas2 + j] = soma_parcial;
     }}
-  return matrizR;
+  //free(tid);
+  pthread_exit(NULL);
 }
 
 
 int main(int argc, char *argv[]){
-  float *MatrizA;
-  float *MatrizB;
-  float *MatrizC;
-  int Nlinhas, Mcolunas, Nlinhas2, Mcolunas2;
   long long int tam1, tam2, tam3;
 
   FILE* arquivo1;
   FILE* arquivo2;
   size_t ret;
 
-  if(argc < 3) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
+  pthread_t *tid_sistema;
+
+  if(argc < 4) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
+
+  nthreads = atoi(argv[3]);
+
 
   //extraindo informações dos arquivos
 
@@ -59,6 +67,8 @@ int main(int argc, char *argv[]){
   ret = fread(&Mcolunas2, sizeof(int), 1, arquivo2);
   if(!ret){printf("Erro de leitura nas dimensões do arquivo 2 \n"); return 3;}
   
+
+
   //testa se podemos multiplicar matrizes com essas dimensões
   if(Mcolunas != Nlinhas2){printf("Erro de dimensão de matrizes. \n Matriz1 é %i x %i e Matriz2 é %i x %i", Nlinhas, Mcolunas, Nlinhas2, Mcolunas2); return 4;}
 
@@ -84,17 +94,29 @@ int main(int argc, char *argv[]){
   ret = fread(MatrizB, sizeof(float), tam2, arquivo2);
   if(ret<tam2){printf("Erro lendo os elementos do arquivo 2\n"); return 5;}
 
-
   fclose(arquivo1);
   fclose(arquivo2);
 
-  MatrizC = f_seq(MatrizA, MatrizB, Nlinhas, Mcolunas, Mcolunas2);
+  tid_sistema = (pthread_t *) malloc(sizeof(pthread_t) * nthreads);
+  if(tid_sistema==NULL){printf("Erro malloc de tid_sistema\n"); return 3;}
+
+  //criando threads
+  for(long int t=0; t<nthreads; t++){
+    if(pthread_create(tid_sistema + t, NULL, f_thread, (void*) t)){
+      printf("Erro no pthread_create %li \n", t); return 6;
+    }
+  }
+  for(int i=0; i<nthreads; i++){
+    pthread_join(*(tid_sistema + i), NULL);
+  }
 
 #ifdef TEXTO
   printf("Matriz de Entrada A:\n");
   for(int i=0; i<Nlinhas; i++){
     for(int j=0; j<Mcolunas; j++){ printf("%.5f ", MatrizA[i*Mcolunas+j]);}
     printf("\n");}
+
+  printf("cheguei no print\n");
 
   printf("Matriz de Entrada B:\n");
   for(int i=0; i<Nlinhas2; i++){

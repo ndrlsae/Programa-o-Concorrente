@@ -8,7 +8,6 @@ float * f_seq(float *matriz1, float *matriz2, int N, int M, int K){
   float *matrizR; //matriz resultado
   matrizR = (float*) malloc(sizeof(float) * N * K);
 
-
   float soma_parcial;
   for(int i=0; i<N; i++){
     for(int j=0; j<K; j++){
@@ -16,7 +15,7 @@ float * f_seq(float *matriz1, float *matriz2, int N, int M, int K){
       for(int k=0; k<M; k++){
         soma_parcial += matriz1[i*M + k]*matriz2[k*K + j];
       }
-      matrizR[i*M + j] = soma_parcial;
+      matrizR[i*K + j] = soma_parcial;
     }}
   return matrizR;
 }
@@ -85,6 +84,8 @@ int main(int argc, char *argv[]){
   fclose(arquivo1);
   fclose(arquivo2);
 
+  printf("linha87");
+
   MatrizC = f_seq(MatrizA, MatrizB, Nlinhas, Mcolunas, Mcolunas2);
 
 #ifdef TEXTO
@@ -106,9 +107,9 @@ int main(int argc, char *argv[]){
 
   
 
-  free(MatrizA);
-  free(MatrizB);
-  free(MatrizC);
+  //free(MatrizA);
+  //free(MatrizB);
+  //free(MatrizC);
 
   return 0;
 }
