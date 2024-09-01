@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <pthread.h>
+#include "timer.h"
 
-#define TEXTO
+//#define TEXTO
 
 float * f_seq(float *matriz1, float *matriz2, int N, int M, int K){
   float *matrizR; //matriz resultado
@@ -28,11 +30,18 @@ int main(int argc, char *argv[]){
   int Nlinhas, Mcolunas, Nlinhas2, Mcolunas2;
   long long int tam1, tam2, tam3;
 
+  double inicio, fim, delta;
+
   FILE* arquivo1;
   FILE* arquivo2;
+
+  FILE * arquivo_saida;
+
   size_t ret;
 
-  if(argc < 3) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2>\n", argv[0]); return 1;}
+  GET_TIME(inicio);
+
+  if(argc < 4) {printf("ERRO! Inisira os argumentos corretamente: \n %s <arquivoMatriz1> <arquivoMatriz2> <arquivoMatrizsaida>\n", argv[0]); return 1;}
 
   //extraindo informações dos arquivos
 
@@ -84,9 +93,33 @@ int main(int argc, char *argv[]){
   fclose(arquivo1);
   fclose(arquivo2);
 
-  printf("linha87");
+  GET_TIME(fim);
+  printf("Sequencial:\n");
+  printf("Matriz%ix%i(%lli) * Matriz%ix%i(%lli) \nMatriz%ix%i(%lli):\n",Nlinhas, Mcolunas, tam1, Nlinhas2, Mcolunas2, tam3, Nlinhas, Mcolunas2, tam3);
+  delta = fim - inicio;
+  printf("Inicialização: %lf\n", delta);
 
+  GET_TIME(inicio);
   MatrizC = f_seq(MatrizA, MatrizB, Nlinhas, Mcolunas, Mcolunas2);
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf("Processamento: %lf\n", delta);
+
+
+  GET_TIME(inicio);
+  //preenchendo arquivo de saída
+  arquivo_saida = fopen(argv[3], "wb");
+  if(!arquivo_saida) {
+    printf("Erro criando arquivo de saída\n"); return 6;}
+
+  ret = fwrite(&Nlinhas, sizeof(int), 1, arquivo_saida);
+  ret = fwrite(&Mcolunas2, sizeof(int), 1, arquivo_saida);
+
+  ret = fwrite(MatrizC, sizeof(float), tam3, arquivo_saida);
+  if(ret < tam3){ printf("Erro de escrita no arquivo\n"); return 7;}
+
+  fclose(arquivo_saida);
+
 
 #ifdef TEXTO
   printf("Matriz de Entrada A:\n");
@@ -105,11 +138,14 @@ int main(int argc, char *argv[]){
     printf("\n");}
 #endif
 
-  
 
-  //free(MatrizA);
-  //free(MatrizB);
-  //free(MatrizC);
+  free(MatrizA);
+  free(MatrizB);
+  free(MatrizC);
+
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf("Finalização: %lf\n", delta);
 
   return 0;
 }
