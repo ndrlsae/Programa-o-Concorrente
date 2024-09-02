@@ -1,4 +1,4 @@
 #Teste
-![grafico](data/tempo_po_n_threads.png)
+![grafico](data/tempo_por_n_threads.png)
 
 Testando
