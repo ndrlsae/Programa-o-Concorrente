@@ -10,8 +10,12 @@ Em todos os gráficos é possível perceber como a mudança para concorrência d
 
 ## Gráfico de Tempo de execução do Processamento por número de threads
 ![grafico AxT](data/aceleracao_por_n_threads.png)
+Nesse gráfico vemos como o aumento das threads aumenta a aceleração. Nessa fórmula o tempo com as threads está no denominador, por isso esperamos um gráfico crescente, indicando que o denominador está dominuindo. 
+Não temos o valor sequencial neste caso, mas consideremos o valor com 1 thread (que seria um uso incorreto, já que aumentamos o tempo com a criação de threads e continuamos usando apenas um fluxo) para notar que, nos três gráficos, já com duas threads acontece um grande crescimento da curva, indicando como o uso correto de threads melhora nosso programa.
+No primeiro gráfico vemos um pico em 4, em seguida a aceleração decresce, indicando que aumentar o número de threads para além de 4 pode não compensar tanto.
+No segundo e terceiro o pico está em 8 threads, mas nbo segundo a diferença é pouca, enquanto no terceiro, temos uma queda em 4 threads, o que é esperado devido ao gráfico anterior, que já apresentava essa anormalidade.
 
 ## Gráfico de Tempo de execução do Processamento por número de threads
 ![grafico ExT](data/eficiencia_por_n_threads.png)
+Por fim a eficiência, que eu acredito não ter os resultados desejados, pois as três curvas tem um descrescimento muito rápido, com pico próximo a 1 utilizando 1 thread. Ao meu ver isso indica que o ganho em aceleração não foi tão relevante/bom para a quantidade de threads que criamos. Ou seja, apesar de ganharmos tempo, o custo benefício não é tão grande assim ao usar as threads.
 
-Testando

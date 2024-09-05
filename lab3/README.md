@@ -6,5 +6,8 @@ A pasta src contém os códigos utilizados para:
 - multiplicar duas matrizes de maneira concorrente;
 - além de um .h que contém as funções para marcar o tempo de execução de cada versão;
 
-A pasta data contém um Markdown com três tabelas, cada uma referente a um tamanho de matriz com os valores de tempo encontrados nos experimentos. Além disso o código python usado para construir os gráficos que também estão na pasta e no arquivo analise.md, onde fazemos a análise de desempenho das funções sequencial e concorrente(variando o número de threads).
+A pasta data contém um Markdown com três tabelas, cada uma referente a um tamanho de matriz com os valores de tempo encontrados nos experimentos, além disso está lá também o código python usado para construir os gráficos que estão na pasta e no arquivo analise.md, onde fazemos a análise de desempenho das funções sequencial e concorrente(variando o número de threads).
 
+Sobre o computador:
+- Núcleos Lógicos: 2 
+- Núcleos Físicos: 2
