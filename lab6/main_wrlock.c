@@ -14,11 +14,6 @@ int nthreads;
 #define QTDE_INI 10
 #define MAX_VALUE 100
 
-//int read = 0;
-//int write = 0;
-//int q_write = 0;
-
-
 
 void * tarefa(void * arg){
   long int id = (long int) arg;
