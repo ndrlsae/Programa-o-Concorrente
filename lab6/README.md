@@ -33,4 +33,15 @@ Depois da compilação o programa deve ser executado dessa maneira:
 ```
 
 ## Atividade 3
+Nó código wrlock.c: além do padrão leitores e escritores básico, para cumprir o propósito da atividade, acrescentei uma nova variável de condição (q_write) que diz respeito à fila de escritores que se forma quando um escritor chega e não consegue acessar a lista. 
+Essa variável será usada para barrar possíveis leitores que queiram ler da lista quando há escritor na fila. Como a prioridade é do escritor, um novo leitor agora só vai entrar se, além de não haver nenhum escritor escrevendo, também não houver nenhum escritor esperando para entrar. 
+Além disso, quando um escritor termina, é importante que seja dado signal na fila de escritores antes do broadcast na fila de lleitores.
+
+Nos códigos main_wrlock_print.c e wrlock_print.c: nesses códigos temos os prints que aparecerão nos outputs. As primeiras linhas serão o cabeçalho especificando os parâmetros da execução específica.
+Ainda no main_wrlock_print.c temos prints antes e depois de toda iteração na função tarefa, indicando em qual thread essa iteração está acontecendo. Já em wrlock_print.c temos prints quando um escritor ou leitor é barrado, esses prints também indicam a razão de estar barrado, ou seja, informa quantos escritores já estão no sistema escrevendo ou esperando, e no caso de um escritor ser barrado, teremos também quantos leitores estão lendo naquele momento.
+
+Podemos ir aos exemplos:
+
+
+
 
