@@ -42,6 +42,19 @@ Ainda no main_wrlock_print.c temos prints antes e depois de toda iteração na f
 
 Podemos ir aos exemplos:
 
+#output1.txt
+nas linhas 9 a 14, conseguimos ver uma situação em que uma thread estava realizando uma escrita (thread 0: quero deletar), enquanto outra também queria (thread 1: quero deletar), mas a thread 1 ficou barrada pois havia 1 escritor escrevendo.
+na linha 19 podemos ver uma situação em que a thread 0 quer ler mas não pode pois exitsem 2 escritores no sistema.
+#output2.txt
+
+#output3.txt
+
+#output4.txt
+
+#output5.txt
+
+
+
 
 
 
