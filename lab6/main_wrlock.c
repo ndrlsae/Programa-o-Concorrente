@@ -10,7 +10,7 @@ struct list_node_s* head_p = NULL;
 
 int nthreads;
 
-#define QTDE_OPS 20
+#define QTDE_OPS 50
 #define QTDE_INI 10
 #define MAX_VALUE 100
 
@@ -18,8 +18,8 @@ int nthreads;
 void * tarefa(void * arg){
   long int id = (long int) arg;
   int op;
-  int in, out, read;
-  in = out = read = 0;
+  int in, out, reads;
+  in = out = reads = 0;
 
   for(long int i=id; i < QTDE_OPS; i+=nthreads){
     op = rand() % 100;
@@ -27,7 +27,7 @@ void * tarefa(void * arg){
       init_read();
       Member(i%MAX_VALUE, head_p);
       finish_read();
-      read++;}
+      reads++;}
     else if (50<=op && op<75){
       init_write();
       Insert(i%MAX_VALUE, &head_p);
@@ -40,7 +40,7 @@ void * tarefa(void * arg){
       out++;}
   }
 
-  printf("Thread %ld: insert = %d delete = %d read = %d \n", id, in, out, read);
+  printf("Thread %ld: insert = %d delete = %d read = %d \n", id, in, out, reads);
   pthread_exit(NULL);
 }
 
