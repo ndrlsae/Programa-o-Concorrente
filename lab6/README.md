@@ -42,16 +42,19 @@ Ainda no main_wrlock_print.c temos prints antes e depois de toda iteração na f
 
 Podemos ir aos exemplos:
 
-#output1.txt
+# output1.txt
+
 nas linhas 9 a 14, conseguimos ver uma situação em que uma thread estava realizando uma escrita (thread 0: quero deletar), enquanto outra também queria (thread 1: quero deletar), mas a thread 1 ficou barrada pois havia 1 escritor escrevendo.
 na linha 19 podemos ver uma situação em que a thread 0 quer ler mas não pode pois exitsem 2 escritores no sistema.
-#output2.txt
 
-#output3.txt
+# output2.txt
 
-#output4.txt
+a partir da linha 24 temos 1 leitor da thread 3 sendo barrado por um escritor e em seguida vários escritores tentando escrever e sendo barrados.
 
-#output5.txt
+# output4.txt
+
+nesse exemplo conseguimos encontrar um caso em que dois leitores de threads diferentes acessam a lista a partir da linha 146. 
+Não consegui muitos exemplos desse caso e acredito que seja porque a tarefa de leitura é muito rápida e assim que uma thread começa ela termina antes de qualquer outra coisa, mas, nessas linhas, podemos ver que a thread 6 começa a ler antes de a thread 1 finalizar sua leitura, mostrando que é  possível que dois leitores acessem a lista simultaneamente.
 
 
 
