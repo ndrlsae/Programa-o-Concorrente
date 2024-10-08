@@ -1,0 +1,177 @@
+thread 0: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 0: inseri
+thread 0: quero deletar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 0: deletei
+thread 0: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 0: inseri
+thread 0: quero ler
+leitor: comecei a ler
+thread 0: terminei de ler
+thread 0: quero deletar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 0: deletei
+Thread 0: insert = 2 delete = 2 read = 1 
+thread 3: quero ler
+leitor: comecei a ler
+thread 3: terminei de ler
+thread 3: quero deletar
+escritor: comecei a escrever 
+thread 4: quero deletar
+escritor: 0 estão lendo e 1 estão escrevendo
+thread 1: quero ler
+leitor: 2 escritores estão escrevendo/esperando, vou esperar
+escritor: parei de escrever e deixei 1 na fila 
+thread 3: deletei
+thread 3: quero ler
+leitor: 2 escritores estão escrevendo/esperando, vou esperar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 4: deletei
+thread 4: quero ler
+leitor: comecei a ler
+thread 4: terminei de ler
+thread 4: quero ler
+leitor: comecei a ler
+thread 4: terminei de ler
+thread 4: quero deletar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 4: deletei
+thread 4: quero ler
+leitor: comecei a ler
+thread 4: terminei de ler
+Thread 4: insert = 0 delete = 2 read = 3 
+leitor: comecei a ler
+thread 3: terminei de ler
+thread 3: quero ler
+leitor: comecei a ler
+thread 3: terminei de ler
+thread 3: quero ler
+leitor: comecei a ler
+thread 3: terminei de ler
+Thread 3: insert = 0 delete = 1 read = 4 
+leitor: comecei a ler
+thread 1: terminei de ler
+thread 1: quero ler
+leitor: comecei a ler
+thread 1: terminei de ler
+thread 1: quero ler
+leitor: comecei a ler
+thread 1: terminei de ler
+thread 1: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 1: inseri
+thread 1: quero ler
+leitor: comecei a ler
+thread 1: terminei de ler
+Thread 1: insert = 1 delete = 0 read = 4 
+thread 2: quero ler
+leitor: comecei a ler
+thread 2: terminei de ler
+thread 2: quero ler
+leitor: comecei a ler
+thread 2: terminei de ler
+thread 2: quero ler
+leitor: comecei a ler
+thread 2: terminei de ler
+thread 2: quero ler
+leitor: comecei a ler
+thread 2: terminei de ler
+thread 2: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 2: inseri
+Thread 2: insert = 1 delete = 0 read = 4 
+thread 8: quero ler
+leitor: comecei a ler
+thread 8: terminei de ler
+thread 8: quero ler
+leitor: comecei a ler
+thread 8: terminei de ler
+thread 8: quero ler
+leitor: comecei a ler
+thread 8: terminei de ler
+thread 8: quero ler
+leitor: comecei a ler
+thread 8: terminei de ler
+thread 8: quero ler
+leitor: comecei a ler
+thread 8: terminei de ler
+Thread 8: insert = 0 delete = 0 read = 5 
+thread 7: quero ler
+leitor: comecei a ler
+thread 7: terminei de ler
+thread 7: quero ler
+leitor: comecei a ler
+thread 7: terminei de ler
+thread 7: quero ler
+leitor: comecei a ler
+thread 7: terminei de ler
+thread 7: quero ler
+leitor: comecei a ler
+thread 7: terminei de ler
+thread 7: quero ler
+leitor: comecei a ler
+thread 7: terminei de ler
+Thread 7: insert = 0 delete = 0 read = 5 
+thread 6: quero ler
+leitor: comecei a ler
+thread 6: terminei de ler
+thread 6: quero deletar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 6: deletei
+thread 6: quero ler
+leitor: comecei a ler
+thread 6: terminei de ler
+thread 6: quero ler
+leitor: comecei a ler
+thread 6: terminei de ler
+thread 6: quero ler
+leitor: comecei a ler
+thread 6: terminei de ler
+Thread 6: insert = 0 delete = 1 read = 4 
+thread 5: quero ler
+leitor: comecei a ler
+thread 5: terminei de ler
+thread 5: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 5: inseri
+thread 5: quero ler
+leitor: comecei a ler
+thread 5: terminei de ler
+thread 5: quero ler
+leitor: comecei a ler
+thread 5: terminei de ler
+thread 5: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 5: inseri
+Thread 5: insert = 2 delete = 0 read = 3 
+thread 9: quero ler
+leitor: comecei a ler
+thread 9: terminei de ler
+thread 9: quero deletar
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 9: deletei
+thread 9: quero ler
+leitor: comecei a ler
+thread 9: terminei de ler
+thread 9: quero ler
+leitor: comecei a ler
+thread 9: terminei de ler
+thread 9: quero inserir
+escritor: comecei a escrever 
+escritor: parei de escrever e deixei 0 na fila 
+thread 9: inseri
+Thread 9: insert = 1 delete = 1 read = 3 

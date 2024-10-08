@@ -11,9 +11,15 @@ struct list_node_s* head_p = NULL;
 int nthreads;
 
 #define QTDE_OPS 50
-#define QTDE_INI 10
-#define MAX_VALUE 100
+#define QTDE_INI 10000
+#define MAX_VALUE 1000
 
+
+
+void func_demorada(){
+  int h = 0;
+  for (int i = 0; i<1000; i++){
+    h += 2*i+i*22;}}
 
 void * tarefa(void * arg){
   long int id = (long int) arg;
@@ -23,20 +29,29 @@ void * tarefa(void * arg){
 
   for(long int i=id; i < QTDE_OPS; i+=nthreads){
     op = rand() % 100;
-    if(op<50){
+    if(op<70){
+      printf("thread %li: quero ler\n", id);
       init_read();
       Member(i%MAX_VALUE, head_p);
+      func_demorada();
       finish_read();
+      printf("thread %li: terminei de ler\n", id);
       reads++;}
-    else if (50<=op && op<75){
+    else if (70<=op && op<85){
+      printf("thread %li: quero inserir\n", id);
       init_write();
       Insert(i%MAX_VALUE, &head_p);
+      func_demorada();
       finish_write();
+      printf("thread %li: inseri\n", id);
       in++;}
-    else if(op>=75){
+    else if(op>=85){
+      printf("thread %li: quero deletar\n", id);
       init_write();
       Delete(i%MAX_VALUE, &head_p);
+      func_demorada();
       finish_write();
+      printf("thread %li: deletei\n", id);
       out++;}
   }
 
