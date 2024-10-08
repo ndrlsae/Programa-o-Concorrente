@@ -21,8 +21,9 @@ Para compilar o programa utilize o seguinte comando:
 gcc -o wrlock main_wrlock.c wrlock.c list_int.c -Wall
 ```
 ou para versão com prints
-
+```bash
 gcc -o wrlock main_wrlock_print.c wrlock_print.c list_int.c -Wall
+```
 ## Execução
 
 Depois da compilação o programa deve ser executado dessa maneira:
