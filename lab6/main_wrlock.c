@@ -30,28 +30,22 @@ void * tarefa(void * arg){
   for(long int i=id; i < QTDE_OPS; i+=nthreads){
     op = rand() % 100;
     if(op<70){
-      //printf("thread %li: quero ler\n", id);
       init_read();
       Member(i%MAX_VALUE, head_p);
       func_demorada();
       finish_read();
-      //printf("thread %li: terminei de ler\n", id);
       reads++;}
     else if (70<=op && op<85){
-      //printf("thread %li: quero inserir\n", id);
       init_write();
       Insert(i%MAX_VALUE, &head_p);
       func_demorada();
       finish_write();
-      //printf("thread %li: inseri\n", id);
       in++;}
     else if(op>=85){
-      //printf("thread %li: quero deletar\n", id);
       init_write();
       Delete(i%MAX_VALUE, &head_p);
       func_demorada();
       finish_write();
-      //printf("thread %li: deletei\n", id);
       out++;}
   }
 
