@@ -10,7 +10,7 @@ struct list_node_s* head_p = NULL;
 
 int nthreads;
 
-#define QTDE_OPS 50
+#define QTDE_OPS 100
 #define QTDE_INI 10000
 #define MAX_VALUE 1000
 
@@ -29,29 +29,29 @@ void * tarefa(void * arg){
 
   for(long int i=id; i < QTDE_OPS; i+=nthreads){
     op = rand() % 100;
-    if(op<70){
-      //printf("thread %li: quero ler\n", id);
+    if(op<90){
+      printf("thread %li: quero ler\n", id);
       init_read();
       Member(i%MAX_VALUE, head_p);
       func_demorada();
       finish_read();
-      //printf("thread %li: terminei de ler\n", id);
+      printf("thread %li: terminei de ler\n", id);
       reads++;}
-    else if (70<=op && op<85){
-      //printf("thread %li: quero inserir\n", id);
+    else if (90<=op && op<95){
+      printf("thread %li: quero inserir\n", id);
       init_write();
       Insert(i%MAX_VALUE, &head_p);
       func_demorada();
       finish_write();
-      //printf("thread %li: inseri\n", id);
+      printf("thread %li: inseri\n", id);
       in++;}
-    else if(op>=85){
-      //printf("thread %li: quero deletar\n", id);
+    else if(op>=95){
+      printf("thread %li: quero deletar\n", id);
       init_write();
       Delete(i%MAX_VALUE, &head_p);
       func_demorada();
       finish_write();
-      //printf("thread %li: deletei\n", id);
+      printf("thread %li: deletei\n", id);
       out++;}
   }
 
@@ -77,6 +77,10 @@ int main(int argc, char* argv[]){
   pthread_mutex_init(&mutex, NULL);
   pthread_cond_init(&cond_read, NULL); 
   pthread_cond_init(&cond_write, NULL);
+
+  //Printando os Parâmetros
+  printf("QTDE_OPS = %i \nQTDE_INI = %i \nMAX_VALUE = %i \n \n", QTDE_OPS, QTDE_INI, MAX_VALUE);
+  printf("0.9 LÊ \n0.05 INSERE \n0.05 DELETA\n \n");
 
   for(long int i=0; i<nthreads; i++){
     if(pthread_create(tid+i, NULL, tarefa, (void*) i)){
