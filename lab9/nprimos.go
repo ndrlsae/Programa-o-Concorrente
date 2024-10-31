@@ -15,13 +15,11 @@ func ehPrimo(n int ) bool{
     if(n%i==0) {return false}}
   return true}
 
-func conta_primos(num chan int, canal chan int, id int){
-  //fmt.Println("contando primoss")
+func conta_primos(num chan int, canal chan int){
   var i = 0
   for{
     i = <-num
     if(ehPrimo(i)){
-      fmt.Println(i," é primo")
       canal<-1
     } else {canal<-0  
     }
@@ -36,7 +34,7 @@ func main(){
   ehprimo := make(chan int)
 
   for j := 0; j<M; j++ {
-    go conta_primos(numero, ehprimo, j)
+    go conta_primos(numero, ehprimo)
   }
 
   for i := 1; i < N; i++ {
@@ -50,7 +48,7 @@ func main(){
   close(numero)
   close(ehprimo)
 
-  fmt.Println("total =", total)  
+  fmt.Println("Total =", total)  
   }
 
 
