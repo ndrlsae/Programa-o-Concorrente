@@ -8,9 +8,6 @@ Para rodar
 
 ´´´bash
 go run nprimos.go
-
 #ou
-
 go run nprimos.go <range da lista> <número de threads>
-´´´
 
